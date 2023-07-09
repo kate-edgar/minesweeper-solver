@@ -16,7 +16,8 @@ def search_space(board, rows, columns):
         for j in range(columns):
             if board[i][j] != 0 and board[i][j] != 'y':
                 available_spaces.append(board[i][j])
-                search_area(i, j, rows, columns)
+                print(search_area(i, j, rows, columns))
+
     return available_spaces
 
 
@@ -68,19 +69,19 @@ def search_area(x, y, num_rows, num_col):
         potential_bombs.append(middle_right(x, y))
         potential_bombs.append(bottom_right(x, y))
         potential_bombs.append(bottom_middle(x, y))
-        
+
     # Case 2: Top right corner
     elif y == 0 and x == num_rows-1:
         potential_bombs.append(middle_left(x, y))
         potential_bombs.append(bottom_left(x, y))
         potential_bombs.append(bottom_middle(x, y))
-        
+
     # Case 3: Bottom left corner
     elif y == num_col - 1 and x == 0:
         potential_bombs.append(top_middle(x, y))
         potential_bombs.append(top_right(x, y))
         potential_bombs.append(middle_right(x, y))
-        
+
     # Case 4: Bottom right corner
     elif y == num_col-1 and x == num_rows-1:
         potential_bombs.append(top_left(x, y))
@@ -130,7 +131,8 @@ def search_area(x, y, num_rows, num_col):
         potential_bombs.append(bottom_middle(x, y))
         potential_bombs.append(bottom_right(x, y))
 
-    return potential_bombs
+    new_potential_bombs = list(filter(None, potential_bombs))
+    return new_potential_bombs
 
 
 print(search_space(board, rows, columns))
