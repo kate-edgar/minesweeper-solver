@@ -17,7 +17,7 @@ def search_space(board, rows, columns):
             if board[i][j] != 0 and board[i][j] != 'y':
                 available_spaces.append(board[i][j])
                 potential_bomb = search_area(i, j, rows, columns)
-                if len(potential_bomb) == 1:
+                if len(potential_bomb) == board[i][j]:
                     print(potential_bomb)
                     board[potential_bomb[0][0]][potential_bomb[0][1]] = 'X'
     return available_spaces
