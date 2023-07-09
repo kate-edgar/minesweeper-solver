@@ -58,54 +58,78 @@ def bottom_middle(x, y):
 def bottom_right(x, y):
     if board[x+1][y+1] == 'y':
         return x + 1, y + 1
-    
-    
+
+
 def search_area(x, y, num_rows, num_col):
     potential_bombs = []
 
-    # Case 1: Against Left
-    if y == 0:
-        top_middle(x, y)
-        top_right(x, y)
-        middle_right(x, y)
-        bottom_right(x, y)
-        bottom_middle(x, y)
+    # Case 1: Top left corner
+    if y == 0 and x == 0:
+        potential_bombs.append(middle_right(x, y))
+        potential_bombs.append(bottom_right(x, y))
+        potential_bombs.append(bottom_middle(x, y))
         
-    # Case 2: Against Top
+    # Case 2: Top right corner
+    elif y == 0 and x == num_rows-1:
+        potential_bombs.append(middle_left(x, y))
+        potential_bombs.append(bottom_left(x, y))
+        potential_bombs.append(bottom_middle(x, y))
+        
+    # Case 3: Bottom left corner
+    elif y == num_col - 1 and x == 0:
+        potential_bombs.append(top_middle(x, y))
+        potential_bombs.append(top_right(x, y))
+        potential_bombs.append(middle_right(x, y))
+        
+    # Case 4: Bottom right corner
+    elif y == num_col-1 and x == num_rows-1:
+        potential_bombs.append(top_left(x, y))
+        potential_bombs.append(top_middle(x, y))
+        potential_bombs.append(middle_left(x, y))
+
+    # Case 5: Against Left
     elif x == 0:
-        middle_left(x, y)
-        middle_right(x, y)
-        bottom_left(x, y)
-        bottom_middle(x, y)
-        bottom_right(x, y)
-        
+        potential_bombs.append(top_middle(x, y))
+        potential_bombs.append(top_right(x, y))
+        potential_bombs.append(middle_right(x, y))
+        potential_bombs.append(bottom_right(x, y))
+        potential_bombs.append(bottom_middle(x, y))
+
+    # Case 2: Against Top
+    elif y == 0:
+        potential_bombs.append(middle_left(x, y))
+        potential_bombs.append(middle_right(x, y))
+        potential_bombs.append(bottom_left(x, y))
+        potential_bombs.append(bottom_middle(x, y))
+        potential_bombs.append(bottom_right(x, y))
+
     # Case 3: Against Bottom
     elif y == num_col-1:
-        top_left(x, y)
-        top_middle(x, y)
-        top_right(x, y)
-        middle_left(x, y)
-        middle_right(x, y)
-        
+        potential_bombs.append(top_left(x, y))
+        potential_bombs.append(top_middle(x, y))
+        potential_bombs.append(top_right(x, y))
+        potential_bombs.append(middle_left(x, y))
+        potential_bombs.append(middle_right(x, y))
+
     # Case 4: Against Right
     elif x == num_rows-1:
-        top_left(x, y)
-        top_middle(x, y)
-        middle_left(x, y)
-        bottom_left(x, y)
-        bottom_middle(x, y)
-        
-    # Case 5: No Edge
+        potential_bombs.append(top_left(x, y))
+        potential_bombs.append(top_middle(x, y))
+        potential_bombs.append(middle_left(x, y))
+        potential_bombs.append(bottom_left(x, y))
+        potential_bombs.append(bottom_middle(x, y))
+
+    # Case 9: Middle
     else:
-        top_left(x, y)
-        top_middle(x, y)
-        top_right(x, y)
-        middle_left(x, y)
-        middle_right(x, y)
-        bottom_left(x, y)
-        bottom_middle(x, y)
-        bottom_right(x, y)
-        
+        potential_bombs.append(top_left(x, y))
+        potential_bombs.append(top_middle(x, y))
+        potential_bombs.append(top_right(x, y))
+        potential_bombs.append(middle_left(x, y))
+        potential_bombs.append(middle_right(x, y))
+        potential_bombs.append(bottom_left(x, y))
+        potential_bombs.append(bottom_middle(x, y))
+        potential_bombs.append(bottom_right(x, y))
+
     return potential_bombs
 
 
