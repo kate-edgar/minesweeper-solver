@@ -1,3 +1,5 @@
+# Solves a given board 
+
 import Board
 from Board import board
 
