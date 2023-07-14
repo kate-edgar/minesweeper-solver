@@ -1,5 +1,6 @@
 # Generates a game
 import random
+import tkinter as tk
 
 # Board specs
 num_mines = 10
@@ -142,7 +143,6 @@ def search_area(board, x, y, num_rows, num_col, search):
         potential_mines.append(top_right(board, x, y, search))
         potential_mines.append(middle_left(board, x, y, search))
         potential_mines.append(middle_right(board, x, y, search))
-        potential_mines.append(bottom_left(board, x, y, search))
         potential_mines.append(bottom_middle(board, x, y, search))
         potential_mines.append(bottom_right(board, x, y, search))
 
@@ -153,6 +153,24 @@ def search_area(board, x, y, num_rows, num_col, search):
 
 
 board = place_mines(rows, columns, num_mines)
-board = define_nums(board, rows, columns)
+solution_board = define_nums(board, rows, columns)
 print()
-print_board(board, rows)
+print_board(solution_board, rows)
+
+# Board visualizer
+window = tk.Tk();
+window.title("Minesweeper")
+
+for x in range(rows):
+    for y in range(columns):
+        frame = tk.Frame(
+            master=window,
+            relief=tk.RAISED,
+            borderwidth=20
+        )
+        frame.grid(row=x, column=y)
+        num = board[x][y]
+        label = tk.Label(master=frame, text=num)
+        label.pack()
+
+window.mainloop()
